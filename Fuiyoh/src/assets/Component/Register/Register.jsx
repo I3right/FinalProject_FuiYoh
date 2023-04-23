@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutNormal from "../LayoutNormal/LayoutNormal";
 import "./Register.css";
 
@@ -7,6 +8,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [displayName, setDisplayName] = useState("");
+
+  const navigate = useNavigate();
 
   const inputEmail = (email) => {
     setEmail(email.target.value);
@@ -23,6 +26,17 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("submit");
+    alert('Submit alredy')
+    // ย้าย path ของ web โดยใช้ navigate
+    navigate("/Login");
+  };
+  
+  const handleClick = () => {
+    console.log("Click");
+    navigate("/");
+
+    //   console.log(email,password,passwordCheck,displayName)
   };
 
   return (
@@ -67,13 +81,11 @@ const Register = () => {
           </div>
 
           <div className="register-btn">
-            <a href={"/Login"}>
-              <button type="submit" className="btn-regist">Register</button>
-            </a>
-            <a href={"/"}>
-              <button className="btn-back">Back</button>
-            </a>
+              <button type="submit" className="btn-regist">
+                Register
+              </button>
           </div>
+              <button onClick={()=>handleClick()} className="btn-back">Back</button>
         </form>
       </div>
     </LayoutNormal>

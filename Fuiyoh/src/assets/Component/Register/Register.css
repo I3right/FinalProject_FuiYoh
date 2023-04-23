@@ -63,11 +63,11 @@ input[type='file'] {
 
 .register-btn{
   margin-top: 10px;
-  margin-bottom: 1.5rem;
+  margin-bottom: .5rem;
   gap:10px
 }
 
-.register-btn button{
+.register-btn button,.btn-back{
   width: 300px;
   height: 30px;
   border-radius: 30px;
@@ -83,4 +83,5 @@ input[type='file'] {
   background-color: white ;
   border: 1px solid #7773f0;
   color: #7773f0;
+  margin-bottom: 1.5rem;
 }
