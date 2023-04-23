@@ -27,11 +27,11 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit");
-    alert('Submit alredy')
+    alert("Submit alredy");
     // ย้าย path ของ web โดยใช้ navigate
     navigate("/Login");
   };
-  
+
   const handleClick = () => {
     console.log("Click");
     navigate("/");
@@ -80,12 +80,12 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="register-btn">
-              <button type="submit" className="btn-regist">
-                Register
-              </button>
-          </div>
-              <button onClick={()=>handleClick()} className="btn-back">Back</button>
+          <button type="submit" className="register-btn">
+            Register
+          </button>
+          <button onClick={() => handleClick()} className="btn-back">
+            Back
+          </button>
         </form>
       </div>
     </LayoutNormal>
