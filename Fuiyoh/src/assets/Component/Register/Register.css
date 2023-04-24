@@ -1,0 +1,84 @@
+.register{
+  height: calc(100vh - 63px) ;
+  background: rgb(88, 84, 176);
+  background: linear-gradient(
+    150deg,
+    rgba(88, 84, 176, 0.7) 0%,
+    rgba(88, 84, 176, 1) 48%,
+    rgba(88, 84, 176, 0.7) 100%
+  );
+  padding-top: 50px;
+}
+
+.form,.input-form input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2{
+  font-size: 40px;
+}
+
+.form {
+  margin: 0 auto;
+  width: auto;
+  max-width: 400px;
+  min-width: 300px;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.input-picture{
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 1.5rem auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  background-color: #e8e8e8;
+  font-size: 10px;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.input-field input{
+  width: 300px;
+  border: transparent;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  margin-bottom: 2rem;
+}
+
+
+.input-field input:focus{
+  outline: transparent;
+}
+
+.register-btn{
+  margin-top: 10px;
+  margin-bottom: .5rem;
+  gap:10px;
+}
+
+.register-btn ,.btn-back{
+  background-color: #7773f0;
+  border: transparent;
+  color: white;
+  width: 300px;
+  height: 30px;
+  border-radius: 30px;
+}
+
+.btn-back{
+  background-color: white ;
+  border: 1px solid #7773f0;
+  color: #7773f0;
+  margin-bottom: 1.5rem;
+}
