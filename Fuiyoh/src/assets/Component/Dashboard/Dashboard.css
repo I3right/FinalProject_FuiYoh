@@ -1,0 +1,23 @@
+.dasboard-card-section {
+    background-color: #F6F8FC;
+    padding: 40px 40px;
+    display: flex;
+}
+
+.dasboard-card-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    flex: 1;
+    margin: 0 20px;
+    padding: 16px 32px;
+}
+
+.activity-card-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.activity-card-bottom{
+    display: flex;
+}
