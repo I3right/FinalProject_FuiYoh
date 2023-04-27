@@ -2,25 +2,83 @@ import React, { useState } from "react";
 import inputImage from "../../Picture/activity/AddPicture.svg";
 import "./Css/Walking.css";
 
-const Walking = () => {
-  const [title, setTitle] = useState("");
-  const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
-  const [location, setLocation] = useState("");
-  const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [feeling, setFeeling] = useState("");
+// รับ props มาจาก Dashboard
+const Walking = ({ onAdd }) => {
+
+    //เก็บข้อมูล activity เป็น object ถ้าเก็บ state ทีละตัวมันจัดการยาก
+  const [activity, setActivity] = useState({
+    title: "",
+    distance: "",
+    duration: "",
+    location: "",
+    date: "",
+    description: "",
+    feeling: "",
+    img: ""
+  });
+
+  //นำค่าที่กรอกใน input มาใส่เข้าไปใน state
+  const handleChange = (event) => {
+    // เอา name กับ value มาเก็บ object แล้วนำไปใป่ setState Activity
+    const { name, value } = event.target;
+    setActivity(prevActivity => ({
+      ...prevActivity,
+      [name]: value
+    }));
+  };
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onAdd(activity);
+    // เซ็ต state เป็นค่าว่างเวลากด submit แล้วค่าใน input จะหายไป
+    setActivity({
+      title: "",
+      distance: "",
+      duration: "",
+      location: "",
+      date: "",
+      description: "",
+      feeling: "",
+      img: ""
+    });
+  };
+
+  const handleDurations500m = () => {
+    setActivity({
+      distance: +0.5
+    })
+  }
+
+  const handleDurations1km = () => {
+    setActivity({
+      distance: +1
+    })
+  }
+
+  const handleDurations2km = () => {
+    setActivity({
+      distance: +2
+    })
+  }
+
+  const handleDurations3km = () => {
+    setActivity({
+      distance: +3
+    })
+  }
 
   return (
     <div className="addActivity-form">
       <h2>Add Your Activity</h2>
-      <form className="addActivty">
+      <form onSubmit={handleSubmit} className="addActivty">
         <label className="title">
           <h3>Title</h3>
           <input
+            name="title"
             type="text"
-            value={title}
-            onChange={(title) => inputEmail(title)}
+            value={activity.title}
+            onChange={handleChange}
             placeholder="Add Your Title"
           />
         </label>
@@ -28,29 +86,36 @@ const Walking = () => {
         <label className="distance">
           <h3>Distance</h3>
           <input
+            name="distance"
             type="number"
-            value={distance}
-            onChange={(distance) => inputEmail(distance)}
+            value={activity.distance}
+            onChange={handleChange}
             placeholder="Add Your distance(kilometer)"
           />
         </label>
-
+        <ul>
+          <li onClick={handleDurations500m}>500 m</li>
+          <li onClick={handleDurations1km}>1 km</li>
+          <li onClick={handleDurations2km}>2 m</li>
+          <li onClick={handleDurations3km}>3 m</li>
+        </ul>
         <label className="duration">
           <h3>Duration</h3>
           <input
+            name="duration"
             type="number"
-            value={duration}
-            onChange={(duration) => inputEmail(duration)}
+            value={activity.duration}
+            onChange={handleChange}
             placeholder="Add Your duration(minutes)"
           />
         </label>
-
         <label className="location">
           <h3>Location</h3>
           <input
+            name="location"
             type="text"
-            value={location}
-            onChange={(location) => inputEmail(location)}
+            value={activity.location}
+            onChange={handleChange}
             placeholder="Add Your location"
           />
         </label>
@@ -58,9 +123,10 @@ const Walking = () => {
         <label className="date">
           <h3>Date</h3>
           <input
+            name="date"
             type="date"
-            value={date}
-            onChange={(date) => inputEmail(date)}
+            value={activity.date}
+            onChange={handleChange}
             placeholder="Add Your date"
           />
         </label>
@@ -68,9 +134,10 @@ const Walking = () => {
         <label className="description">
           <h3>Description</h3>
           <input
+            name="description"
             type="text"
-            value={description}
-            onChange={(description) => inputEmail(description)}
+            value={activity.description}
+            onChange={handleChange}
             placeholder="Add Your description"
           />
         </label>
@@ -78,9 +145,10 @@ const Walking = () => {
         <label className="feeling">
           <h3>Feeling</h3>
           <input
+          name="feeling"
             type="text"
-            value={feeling}
-            onChange={(feeling) => inputEmail(feeling)}
+            value={activity.feeling}
+            onChange={handleChange}
             placeholder="Add Your feeling"
           />
         </label>
@@ -90,7 +158,7 @@ const Walking = () => {
           <div>
             <img src={inputImage} alt="icon input for image" />
           </div>
-          <input type="file" />
+          <input type="file" value={activity.value} />
         </label>
 
         <button type="submit" className="register-btn">
