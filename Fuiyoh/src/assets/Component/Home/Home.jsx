@@ -4,8 +4,44 @@ import "./Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import setyourgoal from '../../Picture/icon/Home/setYourGoal.png'
+import challengeyourself from '../../Picture/icon/Home/challengeYourSelf.png'
+import viewyourreccords from '../../Picture/icon/Home/challengeWithFriends.png'
+
 
 const Home = () => {
+  const cardInfo = {
+    card1:
+    {
+        img: setyourgoal,
+        header: 'Set Your Goal',
+        paragraph: 'Setting clear exercise goals can help you stay motivated, focused, and on track towards achieving the specific outcomes you desire from your fitness routine.'
+    },
+    card2:
+    {
+        img: challengeyourself,
+        header: 'Challenge Your Self',
+        paragraph: 'Challenging yourself regularly is the key to personal growth and achieving success beyond your comfort zone.'
+    },
+    card3:
+    {
+        img: viewyourreccords,
+        header: 'View your records ',
+        paragraph: 'View and share your post records. To see your improvement and shows to your friends.'
+    }
+
+}
+
+const cards = Object.values(cardInfo).map((card) => (
+    <div className="card-container">
+        <div>
+            <img src={card.img} alt={card.header} />
+            <h4>{card.header}</h4>
+        </div>
+        <p>{card.paragraph}</p>
+    </div>
+));
+
   return (
     <LayoutNormal>
       <div id="maincontent" class="row">
@@ -36,6 +72,7 @@ const Home = () => {
         </div>
       </div>
       {/* Cards section */}
+      <div className="section2-container">{cards}</div>
       {/* <!-- contact section  --> */}
 
       <div ClassName="row" id="contact">
