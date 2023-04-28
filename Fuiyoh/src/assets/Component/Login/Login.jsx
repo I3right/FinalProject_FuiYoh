@@ -1,54 +1,106 @@
 import React from "react";
 import LayoutNormal from "../LayoutNormal/LayoutNormal";
-import roadCycling from '../../Picture/icon/Login-RoadCycling.svg'
-import mainLogo from '../../Picture/icon/logo.svg'
-import './Login.css'
+import "./Login.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import * as yup from "yup";
+import picLogin from "../../Picture/login/cycling-amico.png";
+import logo from "../../Picture/login/logoLogin.png";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("**Invalid email")
+      .required("**Email is required"),
+    password: yup.string().required("**Password is required"),
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    schema
+      .validate({ email, password }, { abortEarly: false })
+      .then(() => {
+        // form is valid, submit it
+        console.log("Form is valid");
+      })
+      .catch((err) => {
+        // form is invalid, set the errors
+        const newErrors = {};
+        err.inner.forEach((error) => {
+          newErrors[error.path] = error.message;
+        });
+        setErrors(newErrors);
+      });
+  };
+
   return (
     <LayoutNormal>
-      <section className="login-form">
-        {/* left */}
-        <article className="left-login">
-          <img src={roadCycling} alt="road-cycling" />
-        </article>
-        {/* right */}
-        <article className="right-login">
-          <div className="right-login-box">
-            <h1>LOG IN</h1>
-            <div className="logo-login">
-              <img src={mainLogo} alt="YUNWHANG-logo" />
-            </div>
-
-            {/* Input from user */}
-            <form>
-              <div className="input-login">
-                <input id="useremail" type="email" placeholder="email" />
+      <div className="body-login">
+        <div className="main-container">
+          <div className="main-container-form">
+            <div className="left-side">
+              <div>
+                <img src={picLogin} alt="" />
               </div>
-              <div className="input-login">
-                <input
-                  id="userpassword"
-                  type="password"
-                  placeholder="password"
-                />
-              </div>
-            </form>
-
-            <button id="login-btn" type="button">
-              Log In
-            </button>
-            <button id="back-btn" type="button">
-              Back
-            </button>
-            <div className="or-text">
-              <p>OR</p>
             </div>
-            <button id="register-btn" type="button">
-              Register
-            </button>
+            <div className="right-side">
+              <h1>LOG IN</h1>
+              <div className="logoLogin">
+                <img src={logo} alt="" />
+              </div>
+              <form className="form-container" onSubmit={handleSubmit}>
+                <div className="login-box">
+                  <div className="user-box">
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label>Email</label>
+                  </div>
+                  <div className="user-box">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <label>Password</label>
+                  </div>
+
+                  {/* error zone */}
+                  <div>
+                    {errors.email && <p className="error">{errors.email}</p>}
+                    {errors.password && (
+                      <p className="error">{errors.password}</p>
+                    )}
+                  </div>
+
+                  <div className="button">
+                    <button id="buttonLogin">Log In</button>
+                    <Link to="/" id="buttonBack">
+                      Back
+                    </Link>
+                    <div className="or-text">
+                      <p>OR</p>
+                    </div>
+                    <Link to="/Register" id="buttonRegister">
+                      Register Now!
+                    </Link>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-        </article>
-      </section>
+        </div>
+      </div>
     </LayoutNormal>
   );
 };
