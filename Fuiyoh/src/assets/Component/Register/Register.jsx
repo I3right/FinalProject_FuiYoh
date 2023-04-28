@@ -2,91 +2,130 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LayoutNormal from "../LayoutNormal/LayoutNormal";
 import "./Register.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import * as yup from "yup";
 
 const Register = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [displayName, setDisplayName] = useState("");
-
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const inputEmail = (email) => {
-    setEmail(email.target.value);
-  };
-  const inputPassword = (password) => {
-    setPassword(password.target.value);
-  };
-  const inputPasswordCheck = (email) => {
-    setPasswordCheck(email.target.value);
-  };
-  const inputDisplayName = (email) => {
-    setDisplayName(email.target.value);
+  const schema = yup.object().shape({
+    username: yup.string().required("**Username is required"),
+    email: yup
+      .string()
+      .email("**Invalid email")
+      .required("**Email is required"),
+    password: yup
+      .string()
+      .min(8, "**Password must be at least 8 characters")
+      .required("**Password is required"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "**Passwords must match")
+      .required("**Confirm Password is required"),
+  });
+
+  const handleRegisterButtonClick = () => {
+    schema
+      .validate(
+        { username, email, password, confirmPassword },
+        { abortEarly: false }
+      )
+      .then(() => {
+        // form is valid, submit it
+        console.log("Form is valid");
+        navigate("/Login");
+      })
+      .catch((err) => {
+        // form is invalid, set the errors
+        const newErrors = {};
+        err.inner.forEach((error) => {
+          newErrors[error.path] = error.message;
+        });
+        setErrors(newErrors);
+      });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit");
-    alert("Submit alredy");
-    // ย้าย path ของ web โดยใช้ navigate
-    navigate("/Login");
-  };
-
-  const handleClick = () => {
-    console.log("Click");
-    navigate("/");
-
-    //   console.log(email,password,passwordCheck,displayName)
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleRegisterButtonClick();
   };
 
   return (
     <LayoutNormal>
-      <div className="register">
-        <form onSubmit={handleSubmit} className="form">
-          <h2>Register</h2>
+      <div className="body-register">
+        <div className="container">
+          <div className="from-container">
+            <h1>REGISTER</h1>
+            <form onSubmit={handleSubmit}>
+              <div className="login-box">
+                <div className="user-box">
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <label>Username</label>
+                </div>
+                <div className="user-box">
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <label>Email</label>
+                </div>
+                <div className="user-box">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <label>Password</label>
+                </div>
+                <div className="user-box">
+                  <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  <label>Confirm Password</label>
+                </div>
 
-          <div className="input-form">
-            <label>
-              <div className="input-picture">
-                <input type="file" />
-                Upload picture
+                {/* error zone */}
+
+                <div>
+                  {errors.username && (
+                    <p className="error">{errors.username}</p>
+                  )}
+                  {errors.email && <p className="error">{errors.email}</p>}
+                  {errors.password && (
+                    <p className="error">{errors.password}</p>
+                  )}
+                  {errors.confirmPassword && (
+                    <p className="error">{errors.confirmPassword}</p>
+                  )}
+                </div>
+                <div className="button">
+                  <button id="buttonRegister-register" type="submit">
+                    Register
+                  </button>
+                  <Link to="/" id="buttonBack">
+                    Back
+                  </Link>
+                </div>
               </div>
-            </label>
-            <div className="input-field">
-              <input
-                type="email"
-                value={email}
-                onChange={(email) => inputEmail(email)}
-                placeholder="Email"
-              />
-              <input
-                type="password"
-                value={password}
-                onChange={(password) => inputPassword(password)}
-                placeholder="Password"
-              />
-              <input
-                type="password"
-                value={passwordCheck}
-                onChange={(password) => inputPasswordCheck(password)}
-                placeholder="Confirm Password"
-              />
-              <input
-                type="text"
-                value={displayName}
-                onChange={(displayName) => inputDisplayName(displayName)}
-                placeholder="Displayname"
-              />
-            </div>
+            </form>
           </div>
-
-          <button type="submit" className="register-btn">
-            Register
-          </button>
-          <button onClick={() => handleClick()} className="btn-back">
-            Back
-          </button>
-        </form>
+        </div>
       </div>
     </LayoutNormal>
   );
