@@ -84,11 +84,6 @@ const Dashboard = () => {
                         <h1>{card.distance/card.duration}</h1>
                         <span>KM/Mins</span>
                     </div>
-                    <div>
-                        <h6>Target</h6>
-                        <h1></h1>
-                        <span></span>
-                    </div>
                 </div>
             </div>
             <div>
