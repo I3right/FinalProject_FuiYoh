@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Walking from "../Activity/Walking";
+import LayoutNormal from '../LayoutNormal/LayoutNormal'
 import './Dashboard.css'
 
 const Dashboard = () => {
@@ -100,17 +101,18 @@ const Dashboard = () => {
     )
     );
     return (
-        <div>
+        <LayoutNormal>
             <div className="dasboard-card-section">
                 <div>
                     <h4>“The hardest thing about exercise is start doing it” </h4>
                 </div>
             </div>
+            .
             <div className="dasboard-card-section">
                 <Walking onAdd={addActivity} />
                 {cards.reverse()}
             </div>
-        </div>
+        </LayoutNormal>
     );
 };
 
