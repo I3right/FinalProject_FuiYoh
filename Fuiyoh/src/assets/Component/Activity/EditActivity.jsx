@@ -4,88 +4,45 @@ import "./Css/Walking.css";
 import { useNavigate } from "react-router-dom";
 
 // รับ props มาจาก Dashboard
-const Walking = ({ onAdd }) => {
+const Walking = (
+  { editActivityList,
+    setToggleEdit,
+    setEditActivityList,
+    activityCard,
+    setActivityCard,
+    editCardId
+  }) => {
   const navigate = useNavigate();
 
-  //เก็บข้อมูล activity เป็น object ถ้าเก็บ state ทีละตัวมันจัดการยาก
-  const [activity, setActivity] = useState({
-    title: "",
-    distance: "",
-    duration: "",
-    location: "",
-    date: "",
-    description: "",
-    feeling: "",
-    img: "",
-  });
 
-  // console.log(activity);
-
-  //นำค่าที่กรอกใน input มาใส่เข้าไปใน state
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    setActivityCard(activityCard.map((card) => (card.id === editCardId)? editActivityList: card));
+    setToggleEdit(false)
+  };
+  // 
+  
   const handleChange = (event) => {
     // เอา name กับ value มาเก็บ object แล้วนำไปใป่ setState Activity
     const { name, value } = event.target;
-    setActivity((prevActivity) => ({
+    setEditActivityList((prevActivity) => ({
       ...prevActivity,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onAdd(activity);
-    // เซ็ต state เป็นค่าว่างเวลากด submit แล้วค่าใน input จะหายไป
-    setActivity({
-      title: "",
-      distance: "",
-      duration: "",
-      location: "",
-      date: "",
-      description: "",
-      feeling: "",
-      img: "",
-    });
-  };
 
-  const handleDurations500m = () => {
-    setActivity({
-      distance: +0.5,
-    });
-  };
-
-  const handleDurations1km = () => {
-    setActivity({
-      distance: +1,
-    });
-  };
-
-  const handleDurations2km = () => {
-    setActivity({
-      distance: +2,
-    });
-  };
-
-  const handleDurations3km = () => {
-    setActivity({
-      distance: +3,
-    });
-  };
-
-  const handleClick = (e) => {
-    console.log("click");
-    // navigate("/");
-  };
-
+  
   return (
     <div className="addActivity-form">
-      <h2>Add Your Activity</h2>
-      <form onSubmit={handleSubmit} className="addActivty">
+      <h2>Edit Activity</h2>
+      <form onSubmit={handleUpdate} className="addActivty">
         <label className="title">
           <h3>Title</h3>
           <input
             name="title"
             type="text"
-            value={activity.title}
+            value={editActivityList.title}
             onChange={handleChange}
             placeholder="Add Your Title"
           />
@@ -96,23 +53,18 @@ const Walking = ({ onAdd }) => {
           <input
             name="distance"
             type="number"
-            value={activity.distance}
+            value={editActivityList.distance}
             onChange={handleChange}
             placeholder="Add Your distance(kilometer)"
           />
         </label>
-        <ul>
-          <li onClick={handleDurations500m}>500 m</li>
-          <li onClick={handleDurations1km}>1 km</li>
-          <li onClick={handleDurations2km}>2 m</li>
-          <li onClick={handleDurations3km}>3 m</li>
-        </ul>
+
         <label className="duration">
           <h3>Duration</h3>
           <input
             name="duration"
             type="number"
-            value={activity.duration}
+            value={editActivityList.duration}
             onChange={handleChange}
             placeholder="Add Your duration(minutes)"
           />
@@ -122,7 +74,7 @@ const Walking = ({ onAdd }) => {
           <input
             name="location"
             type="text"
-            value={activity.location}
+            value={editActivityList.location}
             onChange={handleChange}
             placeholder="Add Your location"
           />
@@ -133,7 +85,7 @@ const Walking = ({ onAdd }) => {
           <input
             name="date"
             type="date"
-            value={activity.date}
+            value={editActivityList.date}
             onChange={handleChange}
             placeholder="Add Your date"
           />
@@ -144,7 +96,7 @@ const Walking = ({ onAdd }) => {
           <input
             name="description"
             type="text"
-            value={activity.description}
+            value={editActivityList.description}
             onChange={handleChange}
             placeholder="Add Your description"
           />
@@ -155,7 +107,7 @@ const Walking = ({ onAdd }) => {
           <input
             name="feeling"
             type="text"
-            value={activity.feeling}
+            value={editActivityList.feeling}
             onChange={handleChange}
             placeholder="Add Your feeling"
           />
@@ -166,13 +118,13 @@ const Walking = ({ onAdd }) => {
           <div>
             <img src={inputImage} alt="icon input for image" />
           </div>
-          <input type="file" value={activity.value} />
+          <input type="file" value={editActivityList.value} />
         </label>
 
         <button type="submit" className="register-btn">
           Add Activity
         </button>
-        <button onClick={() => handleClick()} className="btn-back">
+        <button onClick={() => setToggleEdit(false)} className="btn-back">
           Cancel
         </button>
       </form>

@@ -25,7 +25,7 @@ const Home = () => {
               lifestyle!
             </p>
             <div className="button">
-              <Link to="/Login" id="buttonGetStart">
+              <Link to="/dashboard" id="buttonGetStart">
                 Get Start
               </Link>
               <Link to="/Register" id="buttonRegister">
