@@ -1,5 +1,5 @@
 import React from "react";
-import LayoutNormal from "../LayoutNormal/LayoutNormal";
+import LayoutNormal from "../Layout/LayoutNormal";
 import "./Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, Col, Row } from "react-bootstrap";

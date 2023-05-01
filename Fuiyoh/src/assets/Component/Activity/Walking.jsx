@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import inputImage from "../../Picture/activity/AddPicture.svg";
 import "./Css/Walking.css";
-import { useNavigate } from "react-router-dom";
 
 // รับ props มาจาก Dashboard
-const Walking = ({ onAdd }) => {
-  const navigate = useNavigate();
+const Walking = ({ onAdd, setToggleAdd }) => {
 
   //เก็บข้อมูล activity เป็น object ถ้าเก็บ state ทีละตัวมันจัดการยาก
   const [activity, setActivity] = useState({
@@ -71,9 +69,9 @@ const Walking = ({ onAdd }) => {
     });
   };
 
-  const handleClick = (e) => {
+  const handleCancle = (e) => {
     console.log("click");
-    // navigate("/");
+    setToggleAdd(false);
   };
 
   return (
@@ -101,12 +99,14 @@ const Walking = ({ onAdd }) => {
             placeholder="Add Your distance(kilometer)"
           />
         </label>
-        <ul>
+
+        <ul className="distance-preset">
           <li onClick={handleDurations500m}>500 m</li>
           <li onClick={handleDurations1km}>1 km</li>
           <li onClick={handleDurations2km}>2 m</li>
           <li onClick={handleDurations3km}>3 m</li>
         </ul>
+
         <label className="duration">
           <h3>Duration</h3>
           <input
@@ -117,6 +117,7 @@ const Walking = ({ onAdd }) => {
             placeholder="Add Your duration(minutes)"
           />
         </label>
+
         <label className="location">
           <h3>Location</h3>
           <input
@@ -172,7 +173,7 @@ const Walking = ({ onAdd }) => {
         <button type="submit" className="register-btn">
           Add Activity
         </button>
-        <button onClick={() => handleClick()} className="btn-back">
+        <button onClick={() => handleCancle()} className="btn-back">
           Cancel
         </button>
       </form>

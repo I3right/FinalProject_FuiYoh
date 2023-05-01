@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ActivitySelector from "../Activity/ActivitySelector";
-import LayoutNormal from "../LayoutNormal/LayoutNormal";
+import LayoutSignin from "../Layout/LayoutSignin";
 import "./AddActivity.css";
 import Walking from "../Activity/Walking";
 
@@ -13,17 +13,17 @@ const AddActivity = () => {
   };
 
   return (
-    <LayoutNormal>
+    <LayoutSignin>
       <div className="addActivity">
         <ActivitySelector setActivity={setActivity} />
 
-        {activityType === "walking" && <Walking/>}
-        {activityType === "running" && <Walking/>}
-        {activityType === "cycling" && <Walking/>}
-        {activityType === "hiking" && <Walking/>}
-        {activityType === "swimming" && <Walking/>}
+        {activityType === "walking" && <Walking />}
+        {activityType === "running" && <Walking />}
+        {activityType === "cycling" && <Walking />}
+        {activityType === "hiking" && <Walking />}
+        {activityType === "swimming" && <Walking />}
       </div>
-    </LayoutNormal>
+    </LayoutSignin>
   );
 };
 

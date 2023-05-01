@@ -1,5 +1,5 @@
 import React from "react";
-import LayoutNormal from "../LayoutNormal/LayoutNormal";
+import LayoutNormal from "../Layout/LayoutNormal";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";

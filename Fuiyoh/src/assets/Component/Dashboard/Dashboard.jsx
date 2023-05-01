@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Walking from "../Activity/Walking";
-import EditActivity from "../Activity/EditActivity"
-import LayoutNormal from "../LayoutNormal/LayoutNormal";
+import EditActivity from "../Activity/EditActivity";
+import LayoutSignin from "../Layout/LayoutSignin";
+import settingLogo from '../../Picture/dashboard/SettingIcon.svg'
+import account from '../../Picture/dashboard/account.svg'
 import "./Dashboard.css";
+import "./Card.css";
 
 const Dashboard = () => {
-  const [toggleEdit,setToggleEdit] = useState(false);
-  const [editCardId,seteditCardId] = useState('false');
+  const [toggleAdd, setToggleAdd] = useState(false);
+  const [toggleEdit, setToggleEdit] = useState(false);
+  const [editCardId, seteditCardId] = useState("false");
 
   const addActivity = (activity) => {
     // หา id ของการ์ดใบสุดท้ายเพื่อมาสร้าง id ใหม่
@@ -16,7 +20,7 @@ const Dashboard = () => {
     const newActivity = { id: newId, ...activity };
     const newActivities = [...activityCard, newActivity];
     setActivityCard(newActivities);
-  }; 
+  };
 
   const deleteActivity = (id) => {
     // filter การ์ดให้แสดงผลการ์ดที่เลข id ที่ไม่มีเลข id ที่กำหนดไว้
@@ -38,9 +42,9 @@ const Dashboard = () => {
   });
 
   const editActivity = (id) => {
-    setToggleEdit(true)
-    seteditCardId(id)
-    setEditActivityList(activityCard[--id])
+    setToggleEdit(true);
+    seteditCardId(id);
+    setEditActivityList(activityCard[--id]);
   };
 
   const [activityCard, setActivityCard] = useState([
@@ -79,35 +83,53 @@ const Dashboard = () => {
     },
   ]);
 
+  const handleToggleAdd = () => {
+    setToggleAdd(true);
+  }
+
   const cards = activityCard.map((card) => (
     <div className="dasboard-card-container" key={card.id}>
+
       <div className="activity-card-top">
-        <img />
-        <h4>{card.title}</h4>
-        <p>{card.location}</p>
-        <img src={card.feeling} />
-        <img src={card.img} />
+        <figure>
+          {/* <img /> */}
+
+        </figure>
+        <div>
+          <h4>{card.title}</h4>
+          <p>{card.location}</p>
+        </div>
+        <div className="status-card feeling">
+          <img src={card.feeling} />
+        </div>
+        <div className="status-card card-option">
+          <img src={card.img} />
+          {!toggleAdd && <div className="card-button">
+            <button onClick={() => deleteActivity(card.id)}>delete</button>
+            <button onClick={() => editActivity(card.id)}>edit</button>
+          </div>}
+        </div>
       </div>
 
-      <div>
-        <div>
-          <p>{card.description}</p>
+      <div className="activity-card-info">
+        <div className="activity-description-box">
+          <small>{card.description}</small>
         </div>
-        <div className="activity-card-bottom">
+        <div className="activity-card-detail">
           <div>
             <h6>Distance</h6>
             <h3>{card.distance}</h3>
-            <span></span>
+            <small>km</small>
           </div>
           <div>
             <h6>Time</h6>
             <h3>{card.duration}</h3>
-            <span></span>
+            <small>mins</small>
           </div>
           <div>
             <h6>pace</h6>
-            <h3>{card.distance / card.duration}</h3>
-            <span>KM/Mins</span>
+            <h3>{(card.duration) / card.distance}</h3>
+            <small>km/mins</small>
           </div>
         </div>
       </div>
@@ -116,27 +138,49 @@ const Dashboard = () => {
         <img></img>
       </div>
 
-      <div className="card-button">
-        <button onClick={() => deleteActivity(card.id)}>delete</button>
-        <button onClick={() => editActivity(card.id)}>edit</button>
-      </div>
+
     </div>
   ));
 
   return (
-    <LayoutNormal>
-      <div className="dasboard-card-section">
-        <div>
-          <h4>“The hardest thing about exercise is start doing it” </h4>
-        </div>
+    <LayoutSignin>
+      <div className='dashboard container-xl'>
+
+        <aside>
+          <div className="dashboard-profile">
+            <figure><img src={account} alt="Profile picture" /></figure>
+            <div>
+              <span>Displayname example</span>
+              <div>
+                <img src={settingLogo} alt="Logo setting" />
+              </div>
+            </div>
+          </div>
+          <button onClick={handleToggleAdd}>Add Activity</button>
+        </aside>
+
+        {toggleAdd && <Walking onAdd={addActivity} setToggleAdd={setToggleAdd} />}
+
+        {toggleEdit && (
+          <EditActivity
+            editActivityList={editActivityList}
+            setToggleEdit={setToggleEdit}
+            setEditActivityList={setEditActivityList}
+            activityCard={activityCard}
+            setActivityCard={setActivityCard}
+            editCardId={editCardId}
+          />
+        )}
+
+        <section>
+          <h4 className="quote">“The hardest thing about exercise is start doing it” </h4>
+          <div className="dasboard-card-section">
+            {cards.reverse()}
+          </div>
+        </section>
+
       </div>
-      .
-      <div className="dasboard-card-section">
-        {!toggleEdit && <Walking onAdd={addActivity}/>}
-        {toggleEdit && <EditActivity editActivityList={editActivityList} setToggleEdit={setToggleEdit} setEditActivityList={setEditActivityList} activityCard={activityCard} setActivityCard={setActivityCard} editCardId={editCardId}/>}
-        {cards.reverse()}
-      </div>
-    </LayoutNormal>
+    </LayoutSignin>
   );
 };
 

@@ -1,0 +1,50 @@
+.dasboard-card-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 1.5rem;
+}
+
+.dasboard-card-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    width: 360px;
+    height: 450px;
+    margin: 0 20px;
+    border-radius: 1rem;
+}
+
+.activity-card-top {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    padding: 5px 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+}
+
+.activity-card-top img {
+    width: 100%;
+}
+
+.activity-card-top>figure {
+    width: 30px;
+}
+
+.status-card {
+    width: 24px;
+}
+
+.activity-card-info {
+    height: 330px;
+    padding: 10px;
+}
+
+.activity-description-box {
+    height: 80px;
+}
+
+.activity-card-detail {
+    display: flex;
+    justify-content: space-between;
+}
