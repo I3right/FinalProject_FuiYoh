@@ -1,7 +1,6 @@
 .dashboard {
     display: flex;
     height: 100%;
-    padding-bottom: 3rem;
 }
 
 .dashboard-profile {

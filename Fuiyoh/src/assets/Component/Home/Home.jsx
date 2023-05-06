@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <LayoutNormal>
-      <div id="maincontent" class="row">
-        <div class="col-6"></div>
+      <div id="maincontent" className="row">
+        <div className="col-6"></div>
         <div id="textcontent" className="col-6">
           <div id="textcontent1" className="card-body">
             <h5 className="card-title">YUNWHANG</h5>
@@ -38,7 +38,7 @@ const Home = () => {
       {/* Cards section */}
       {/* <!-- contact section  --> */}
 
-      <div ClassName="row" id="contact">
+      <div className="row" id="contact">
         <div className="col-6">
           <iframe
             className="map"

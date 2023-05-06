@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     row-gap: 1.5rem;
+    margin-bottom: 3rem;
 }
 
 .dasboard-card-container {
@@ -13,6 +14,7 @@
     height: 450px;
     margin: 0 20px;
     border-radius: 1rem;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
 }
 
 .activity-card-top {
@@ -28,6 +30,7 @@
 }
 
 .activity-card-top>figure {
+    margin: auto 0;
     width: 30px;
 }
 
@@ -47,4 +50,20 @@
 .activity-card-detail {
     display: flex;
     justify-content: space-between;
+}
+
+
+.card-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+
+.delete-btn:hover{
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.1);
+}
+.edit-btn:hover{
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.1);
 }

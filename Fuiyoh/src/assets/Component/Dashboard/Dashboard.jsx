@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Walking from "../Activity/Walking";
 import EditActivity from "../Activity/EditActivity";
 import LayoutSignin from "../Layout/LayoutSignin";
-import settingLogo from '../../Picture/dashboard/SettingIcon.svg'
-import account from '../../Picture/dashboard/account.svg'
+import settingLogo from "../../Picture/dashboard/SettingIcon.svg";
+import account from "../../Picture/dashboard/account.svg";
+import optionIcon from "../../Picture/dashboard/optionIcon.svg";
+import deleteIcon from "../../Picture/dashboard/Delete.svg";
+import EditIcon from "../../Picture/dashboard/Edit.svg";
 import "./Dashboard.css";
 import "./Card.css";
 
@@ -20,6 +23,7 @@ const Dashboard = () => {
     const newActivity = { id: newId, ...activity };
     const newActivities = [...activityCard, newActivity];
     setActivityCard(newActivities);
+    setToggleOption(false);
   };
 
   const deleteActivity = (id) => {
@@ -85,29 +89,39 @@ const Dashboard = () => {
 
   const handleToggleAdd = () => {
     setToggleAdd(true);
-  }
+  };
 
   const cards = activityCard.map((card) => (
     <div className="dasboard-card-container" key={card.id}>
-
       <div className="activity-card-top">
         <figure>
-          {/* <img /> */}
-
+          <img src={optionIcon} alt="activity icon" />
         </figure>
+
         <div>
           <h4>{card.title}</h4>
           <p>{card.location}</p>
         </div>
+
         <div className="status-card feeling">
           <img src={card.feeling} />
         </div>
+
         <div className="status-card card-option">
-          <img src={card.img} />
-          {!toggleAdd && <div className="card-button">
-            <button onClick={() => deleteActivity(card.id)}>delete</button>
-            <button onClick={() => editActivity(card.id)}>edit</button>
-          </div>}
+          <div className="card-button">
+            <img
+              src={EditIcon}
+              alt="Edit button"
+              onClick={() => editActivity(card.id)}
+              className="edit-btn"
+            />
+            <img
+              src={deleteIcon}
+              alt="delete button"
+              onClick={() => deleteActivity(card.id)}
+              className="delete-btn"
+            />
+          </div>
         </div>
       </div>
 
@@ -128,27 +142,26 @@ const Dashboard = () => {
           </div>
           <div>
             <h6>pace</h6>
-            <h3>{(card.duration) / card.distance}</h3>
+            <h3>{card.duration / card.distance}</h3>
             <small>km/mins</small>
           </div>
         </div>
       </div>
 
       <div>
-        <img></img>
+        <img src={card.img} />
       </div>
-
-
     </div>
   ));
 
   return (
     <LayoutSignin>
-      <div className='dashboard container-xl'>
-
+      <div className="dashboard container-xl">
         <aside>
           <div className="dashboard-profile">
-            <figure><img src={account} alt="Profile picture" /></figure>
+            <figure>
+              <img src={account} alt="Profile picture" />
+            </figure>
             <div>
               <span>Displayname example</span>
               <div>
@@ -159,7 +172,9 @@ const Dashboard = () => {
           <button onClick={handleToggleAdd}>Add Activity</button>
         </aside>
 
-        {toggleAdd && <Walking onAdd={addActivity} setToggleAdd={setToggleAdd} />}
+        {toggleAdd && (
+          <Walking onAdd={addActivity} setToggleAdd={setToggleAdd} />
+        )}
 
         {toggleEdit && (
           <EditActivity
@@ -173,12 +188,11 @@ const Dashboard = () => {
         )}
 
         <section>
-          <h4 className="quote">“The hardest thing about exercise is start doing it” </h4>
-          <div className="dasboard-card-section">
-            {cards.reverse()}
-          </div>
+          <h4 className="quote">
+            “The hardest thing about exercise is start doing it”{" "}
+          </h4>
+          <div className="dasboard-card-section">{cards.reverse()}</div>
         </section>
-
       </div>
     </LayoutSignin>
   );
